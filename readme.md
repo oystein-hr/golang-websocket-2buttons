@@ -1,0 +1,2 @@
+# Enkel websocket GUI med 2 knapper
+Starter en lokal HTTP server, oppgradert med websocket forbindelse, på port 8080. Serveren sender en melding når klient kobler til, den meldingen blir satt i en pre tag i klienten. Når du trykker på en av knappene, sendes det beskjed til server og den svarer med ny melding.
