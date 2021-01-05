@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=800, initial-scale=1.0">
+    <title>WS 2-Buttons</title>
+</head>
+<body>
+    <button id="button1">1</button>
+    <button id="button2">2</button>
+    <pre id="output"></pre>
+
+    <script>
+        var button1 = document.getElementById("button1");
+        var button2 = document.getElementById("button2");
+        var output = document.getElementById("output");
+        var socket = new WebSocket("ws://localhost:8080/ws");
+
+        button1.onclick = function(){
+            socket.send("1");
+        }
+
+        button2.onclick = function(){
+            socket.send("2");
+        }
+
+        socket.onmessage = function (event) {
+            output.innerHTML = event.data;
+        }
+    </script>    
+</body>
+</html>
