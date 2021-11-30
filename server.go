@@ -15,8 +15,22 @@ var httpServer = &http.Server{
 	Addr: ":8080",
 }
 
+var valid_origin = map[string]bool{
+	"http://127.0.0.1:8080": true,
+	"http://localhost:8080": true,
+}
+
 // Sette opp websocket funksjoner, mappet til /ws
 func ws(w http.ResponseWriter, r *http.Request) {
+	// Definerer tillate origins
+
+	// Sjekke om det er tillate origins som kobler til
+	upgrader.CheckOrigin = func(r *http.Request) bool {
+		origin := r.Header.Get("Origin")
+		log.Println("Origin: ", origin)
+		return valid_origin[origin]
+	}
+
 	// Oppgraderer HTTP til Websocket, og sjekker for errors
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
